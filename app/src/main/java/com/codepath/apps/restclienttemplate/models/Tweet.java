@@ -12,8 +12,10 @@ import java.util.List;
 public class Tweet {
 
     public String body;
-    public String createdAt;
+    public static String createdAt;
     public User user;
+    public String timeStamp;
+
 
 
 
@@ -23,7 +25,7 @@ public class Tweet {
         tweet.createdAt = jsonObject.getString("created_at");
         tweet.user = User.fromJson(jsonObject.getJSONObject("user"));
 
-
+        tweet.timeStamp = TimeFormatter.getTimeStamp("created_at");
 
 
         return tweet;
@@ -37,12 +39,11 @@ public class Tweet {
         return tweets;
 
     }
+    public static String getFormattedTimestamp(){
+        return TimeFormatter.getTimeDifference(createdAt);
+    }
 
-
-    public void getFormattedTimestamp(String createdAt) {
-        Tweet tweet = new Tweet();
-    tweet.createdAt = TimeFormatter.getTimeDifference("created_at");
 
     }
 
-}
+
