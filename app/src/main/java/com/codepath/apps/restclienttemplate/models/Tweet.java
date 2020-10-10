@@ -1,5 +1,7 @@
 package com.codepath.apps.restclienttemplate.models;
 
+import android.widget.TextView;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -13,11 +15,16 @@ public class Tweet {
     public String createdAt;
     public User user;
 
+
+
     public static Tweet fromJson(JSONObject jsonObject) throws JSONException {
         Tweet tweet = new Tweet();
         tweet.body = jsonObject.getString("text");
         tweet.createdAt = jsonObject.getString("created_at");
         tweet.user = User.fromJson(jsonObject.getJSONObject("user"));
+
+
+
 
         return tweet;
     }
@@ -28,6 +35,13 @@ public class Tweet {
             tweets.add(fromJson(jsonArray.getJSONObject(i)));
         }
         return tweets;
+
+    }
+
+
+    public void getFormattedTimestamp(String createdAt) {
+        Tweet tweet = new Tweet();
+    tweet.createdAt = TimeFormatter.getTimeDifference("created_at");
 
     }
 
