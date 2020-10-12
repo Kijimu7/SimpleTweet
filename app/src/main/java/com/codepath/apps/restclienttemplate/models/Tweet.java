@@ -5,16 +5,22 @@ import android.widget.TextView;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.parceler.Parcel;
 
 import java.util.ArrayList;
 import java.util.List;
 
+//Adding library
+@Parcel
 public class Tweet {
 
     public String body;
     public static String createdAt;
     public User user;
     public String timeStamp;
+
+    // empty constructor needed by the Parceler library
+    public Tweet() {}
 
 
 
