@@ -2,6 +2,12 @@ package com.codepath.apps.restclienttemplate.models;
 
 import android.widget.TextView;
 
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.ForeignKey;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -12,10 +18,22 @@ import java.util.List;
 
 //Adding library
 @Parcel
+@Entity(foreignKeys = @ForeignKey(entity = User.class, parentColumns = "id", childColumns = "userId"))
 public class Tweet {
 
+
+    @PrimaryKey
+    @ColumnInfo
+    public long id;
+    @ColumnInfo
     public String body;
-    public static String createdAt;
+    @ColumnInfo
+    public String createdAt;
+
+
+    @ColumnInfo
+    public long userId;
+    @Ignore
     public User user;
     public String timeStamp;
 
@@ -29,9 +47,12 @@ public class Tweet {
         Tweet tweet = new Tweet();
         tweet.body = jsonObject.getString("text");
         tweet.createdAt = jsonObject.getString("created_at");
-        tweet.user = User.fromJson(jsonObject.getJSONObject("user"));
 
-        tweet.timeStamp = TimeFormatter.getTimeStamp("created_at");
+        User user = User.fromJson(jsonObject.getJSONObject("user"));
+        tweet.user = user;
+        tweet.userId = user.id;
+
+        tweet.timeStamp = TimeFormatter.getTimeDifference("created_at");
 
 
         return tweet;
@@ -45,7 +66,7 @@ public class Tweet {
         return tweets;
 
     }
-    public static String getFormattedTimestamp(){
+    public String getFormattedTimestamp(){
         return TimeFormatter.getTimeDifference(createdAt);
     }
 
