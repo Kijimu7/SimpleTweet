@@ -52,7 +52,7 @@ public class Tweet {
         tweet.user = user;
         tweet.userId = user.id;
 
-        tweet.timeStamp = TimeFormatter.getTimeDifference("created_at");
+//        tweet.timeStamp = TimeFormatter.getTimeDifference("created_at");
 
 
         return tweet;
